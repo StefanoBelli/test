@@ -1,4 +1,14 @@
 language: java
+
+addons:
+  sonarcloud:
+    organization: "stefanobelli"
+    token:
+      secure: eXH+iWk1m4I0omwnWRl2xfBeJb2RgQn8pPgHsWnCabQRFblbmD2/QJiu8SYmDKljoJ5ZYzECTIEXfKXG/614wvzdL5wpOh0tUzv8NOt/69TtYEXO+HeVbhB12umwrdvglRuHM33nCMJgkxDcUMT+tYECs7tOCSPp/E5sYil+AT0IsNyOOIg0evcTIQSiuuvurnaE5m21sVzIFBALrCyLYepYSmm7CKn9SCZx69Lvq5ESTmGLDc+HC2iXumuQiw1uSjKwaIoXmyQd47WvQLbtuwA24Tz8D10ph58wlfp32M3nbgQumWsiQVaMuzpI8tQMEgWGBkuAHAEk+yJgnwk/6gFh1PmVI3ufLC5cQQoqAWbphdQgFu1r5dM/jva1l2fYhecZexifJQ3BAQtbxvJPa2n73ifn3OWlbmFOGQyRvgelolabFexvIqRKkscYP5Py9rYOlFOzLKoFXg7LijTTV0CWj1tKyEQ4PXBFcV0HptZKSwES/jXAe+hjk9KWSChPCJWw1K0ZwO5aTHonqCKqpeomGKrKMjLXZPOUNgHb4RMgtOE7fsKbcMx6JLsyanu1VeLebqL8A3H/1id+32TFH89ZaZI0gMBaVjryztJe0WcnjT1/3bkeArOfmds7urgVyG/eMEFu8soNob610MCP4J8Th4N1UKD8wUgeXFDY/uc=
+ 
 jdk:
   - oraclejdk14
-script: ant build
+
+script: 
+  - ant build
+  - sonar-scanner
