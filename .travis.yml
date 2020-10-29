@@ -10,5 +10,8 @@ jdk:
   - oraclejdk14
 
 script: 
-  - ant build
+  - cd cool_project
+  - mvn compile
+  - mvn test
+  - cd ..
   - sonar-scanner
