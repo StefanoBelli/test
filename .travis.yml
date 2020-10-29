@@ -12,6 +12,8 @@ jdk:
 script: 
   - cd cool_project
   - mvn compile
+
+after_success:
   - mvn test
   - cd ..
   - sonar-scanner
