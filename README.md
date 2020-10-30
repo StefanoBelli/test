@@ -31,7 +31,7 @@ Testing some ISPW things (svn, travis, sonarcloud)
 
  ```mvn package```
  
- This will generate jars: one for each module: to have a working jar, add
+ This will generate jars: one for each module: to have a working jar, add this in plugin management for plugin (artifactId) ```maven-jar-plugin```
  
  ```
  <configuration>
