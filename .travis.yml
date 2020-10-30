@@ -22,8 +22,8 @@ after_success:
 
 deploy:
   provider: releases
-  token: $GITHUB_TOKEN
-  skip_cleanup: true
+  api_key: $GITHUB_TOKEN
+  cleanup: true
   file: stable.zip
   on:
     branch: main
