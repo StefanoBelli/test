@@ -1,3 +1,5 @@
+os: linux
+dist: xenial
 language: java
 
 addons:
@@ -22,8 +24,8 @@ after_success:
 
 deploy:
   provider: releases
-  api_key: $GITHUB_TOKEN
-  cleanup: true
+  token: $GITHUB_TOKEN
+  cleanup: false
   file: stable.zip
   on:
     branch: main
