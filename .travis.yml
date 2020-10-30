@@ -12,8 +12,19 @@ jdk:
 script: 
   - cd cool_project
   - mvn compile
+  - mvn test
 
 after_success:
-  - mvn test
   - cd ..
   - sonar-scanner
+  - touch a b
+  - zip stable.zip a b
+
+deploy:
+  provider: releases
+  token: $GITHUB_TOKEN
+  skip_cleanup: true
+  file: stable.zip
+  on:
+    branch: main
+    tags: true
