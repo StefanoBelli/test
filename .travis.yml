@@ -19,7 +19,9 @@ script:
 after_success:
   - cd ..
   - sonar-scanner
+  - '[[ $TRAVIS_TAG != "" ]] && cd cool_project'
   - '[[ $TRAVIS_TAG != "" ]] && mvn package'
+  - '[[ $TRAVIS_TAG != "" ]] && cd ..'
   - '[[ $TRAVIS_TAG != "" ]] && mv cool_project/server/target/server.jar .'
   - '[[ $TRAVIS_TAG != "" ]] && mv cool_project/client/target/client.jar .'
   - '[[ $TRAVIS_TAG != "" ]] && mv server.jar server$TRAVIS_TAG.jar'
