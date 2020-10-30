@@ -20,7 +20,7 @@ after_success:
   - cd ..
   - sonar-scanner
   - touch a b
-  - [[ $TRAVIS_TAG != "" ]] && zip test-rel$TRAVIS_TAG.zip a b
+  - '[[ $TRAVIS_TAG != "" ]] && zip test-rel$TRAVIS_TAG.zip a b'
 
 deploy:
   provider: releases
