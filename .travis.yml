@@ -26,7 +26,7 @@ after_success:
   - '[[ $TRAVIS_TAG != "" ]] && mv cool_project/client/target/client.jar .'
   - '[[ $TRAVIS_TAG != "" ]] && mv server.jar server$TRAVIS_TAG.jar'
   - '[[ $TRAVIS_TAG != "" ]] && mv client.jar client$TRAVIS_TAG.jar'
-  - '[[ $TRAVIS_TAG != "" ]] && zip test-rel$TRAVIS_TAG.zip a b'
+  - '[[ $TRAVIS_TAG != "" ]] && zip test-rel$TRAVIS_TAG.zip server$TRAVIS_TAG.jar client$TRAVIS_TAG.jar'
 
 deploy:
   provider: releases
