@@ -23,7 +23,7 @@ after_success:
   - '[[ $TRAVIS_TAG != "" ]] && mvn package'
   - '[[ $TRAVIS_TAG != "" ]] && cd ../client'
   - '[[ $TRAVIS_TAG != "" ]] && mvn assembly:single'
-  - '[[ $TRAVIS_TAG != "" ]] && cd ..'
+  - '[[ $TRAVIS_TAG != "" ]] && cd ../..'
   - '[[ $TRAVIS_TAG != "" ]] && mv cool_project/server/target/server.jar .'
   - '[[ $TRAVIS_TAG != "" ]] && mv cool_project/client/target/client-jar-with-dependencies.jar .'
   - '[[ $TRAVIS_TAG != "" ]] && mv server.jar server$TRAVIS_TAG.jar'
