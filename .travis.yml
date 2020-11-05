@@ -19,13 +19,15 @@ script:
 after_success:
   - cd ..
   - sonar-scanner
-  - '[[ $TRAVIS_TAG != "" ]] && cd cool_project'
+  - '[[ $TRAVIS_TAG != "" ]] && cd cool_project/server'
   - '[[ $TRAVIS_TAG != "" ]] && mvn package'
+  - '[[ $TRAVIS_TAG != "" ]] && cd ../client'
+  - '[[ $TRAVIS_TAG != "" ]] && mvn assembly:single'
   - '[[ $TRAVIS_TAG != "" ]] && cd ..'
   - '[[ $TRAVIS_TAG != "" ]] && mv cool_project/server/target/server.jar .'
-  - '[[ $TRAVIS_TAG != "" ]] && mv cool_project/client/target/client.jar .'
+  - '[[ $TRAVIS_TAG != "" ]] && mv cool_project/client/target/client-jar-with-dependencies.jar .'
   - '[[ $TRAVIS_TAG != "" ]] && mv server.jar server$TRAVIS_TAG.jar'
-  - '[[ $TRAVIS_TAG != "" ]] && mv client.jar client$TRAVIS_TAG.jar'
+  - '[[ $TRAVIS_TAG != "" ]] && mv client-jar-with-dependencies.jar client$TRAVIS_TAG.jar'
   - '[[ $TRAVIS_TAG != "" ]] && zip test-rel$TRAVIS_TAG.zip server$TRAVIS_TAG.jar client$TRAVIS_TAG.jar'
 
 deploy:
