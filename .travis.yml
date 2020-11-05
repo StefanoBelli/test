@@ -11,6 +11,9 @@ addons:
 jdk:
   - oraclejdk14
 
+before_script:
+  - mvn -version
+
 script: 
   - cd cool_project
   - mvn compile
