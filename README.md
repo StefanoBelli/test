@@ -64,3 +64,87 @@ Testing some ISPW things (svn, travis, sonarcloud)
 ## Missing features from Maven
 
  * Code coverage
+ 
+## JavaFX with java14
+
+ * [thanks](https://github.com/javafxports/openjdk-jfx/issues/236#issuecomment-426583174)
+ 
+#### Add javafx required dependencies
+
+ In subproject ```pom.xml``` file (```<dependencies>```):
+ 
+ ```
+ <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+ <dependency>
+  <groupId>org.openjfx</groupId>
+  <artifactId>javafx-controls</artifactId>
+  <version>16-ea+3</version>
+	</dependency>
+ ```
+
+#### Embed javafx classes in final jar
+
+ In subproject ```pom.xml``` file (```<plugins>```):
+ 
+ ```
+ <plugin>
+  <artifactId>maven-assembly-plugin</artifactId>
+  <configuration>
+   <archive>
+    <manifest>
+     <mainClass>ssynx.test.App</mainClass>
+    </manifest>
+   </archive>
+   <descriptorRefs>
+    <descriptorRef>jar-with-dependencies</descriptorRef>
+   </descriptorRefs>
+  </configuration>
+ </plugin>
+ ```
+ 
+#### Packaging
+
+ In subproject:
+ 
+ ```
+ $ mvn assembly:single
+ ```
+ 
+ Output: ```target/client-jar-with-dependencies.jar```
+ 
+#### Troubleshooting
+
+ ```error javafx runtime components are missing and are required to run this application...``` something like that.
+ 
+  set your entry point not to be a class which extends Application from JFX.
+  
+  src/main/java/ssynx/test/App.java
+  
+  ```java
+  package ssynx.test;
+  
+  // real entry point
+  public class App {
+     public static void main(String[] args) {
+        HelloWorld.main(args);
+     }
+  }
+  ```
+ 
+  src/main/java/ssynx/test/HelloWorld.java
+  
+  ```java
+  package ssynx.test;
+  
+  public class HelloWorld extends Application {
+    @Override
+    public /*...*/ launch(/*...*/) {
+      /*...*/
+    }
+
+    public static void main(String[] args) {
+      /*...*/
+      launch(/*...*/);
+    }
+   }
+   ```
