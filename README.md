@@ -138,13 +138,13 @@ Testing some ISPW things (svn, travis, sonarcloud)
   
   public class HelloWorld extends Application {
     @Override
-    public /*...*/ launch(/*...*/) {
+    public /*...*/ start(/*...*/) {
       /*...*/
     }
 
     public static void main(String[] args) {
       /*...*/
-      launch(/*...*/);
+      launch(args);
     }
    }
    ```
