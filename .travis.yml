@@ -38,7 +38,7 @@ before_deploy:
 deploy:
   provider: releases
   token: $GITHUB_TOKEN
-  cleanup: false
+  skip_cleanup: true
   file: test-rel$TRAVIS_TAG.zip
   on:
     tags: true
