@@ -22,21 +22,23 @@ script:
 after_success:
   - cd ..
   - sonar-scanner
-  - '[[ $TRAVIS_TAG != "" ]] && cd cool_project/server'
-  - '[[ $TRAVIS_TAG != "" ]] && mvn package'
-  - '[[ $TRAVIS_TAG != "" ]] && cd ../client'
-  - '[[ $TRAVIS_TAG != "" ]] && mvn assembly:single'
-  - '[[ $TRAVIS_TAG != "" ]] && cd ../..'
-  - '[[ $TRAVIS_TAG != "" ]] && mv cool_project/server/target/server.jar .'
-  - '[[ $TRAVIS_TAG != "" ]] && mv cool_project/client/target/client-jar-with-dependencies.jar .'
-  - '[[ $TRAVIS_TAG != "" ]] && mv server.jar server$TRAVIS_TAG.jar'
-  - '[[ $TRAVIS_TAG != "" ]] && mv client-jar-with-dependencies.jar client$TRAVIS_TAG.jar'
-  - '[[ $TRAVIS_TAG != "" ]] && zip test-rel$TRAVIS_TAG.zip server$TRAVIS_TAG.jar client$TRAVIS_TAG.jar'
+
+before_deploy:
+  - cd cool_project/server
+  - mvn package
+  - cd ../client
+  - mvn assembly:single
+  - cd ../..
+  - mv cool_project/server/target/server.jar .
+  - mv cool_project/client/target/client-jar-with-dependencies.jar .
+  - mv server.jar server$TRAVIS_TAG.jar
+  - mv client-jar-with-dependencies.jar client$TRAVIS_TAG.jar
+  - zip test-rel$TRAVIS_TAG.zip server$TRAVIS_TAG.jar client$TRAVIS_TAG.jar
 
 deploy:
   provider: releases
   token: $GITHUB_TOKEN
-  skip_cleanup: true
+  cleanup: false
   file: test-rel$TRAVIS_TAG.zip
   on:
     tags: true
