@@ -22,11 +22,24 @@
   </properties>
 
   <dependencies>
-  	  <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
 	  <dependency>
     	  <groupId>org.openjfx</groupId>
     	  <artifactId>javafx-controls</artifactId>
     	  <version>16-ea+3</version>
+		  <classifier>linux</classifier>
+	  </dependency>
+	  <dependency>
+    	  <groupId>org.openjfx</groupId>
+    	  <artifactId>javafx-controls</artifactId>
+    	  <version>16-ea+3</version>
+		  <classifier>win</classifier>
+	  </dependency>
+	  <dependency>
+    	  <groupId>org.openjfx</groupId>
+    	  <artifactId>javafx-controls</artifactId>
+    	  <version>16-ea+3</version>
+		  <classifier>mac</classifier>
 	  </dependency>
     <dependency>
       <groupId>junit</groupId>
