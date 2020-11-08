@@ -148,3 +148,9 @@ Testing some ISPW things (svn, travis, sonarcloud)
     }
    }
    ```
+   
+### Cross-platform compatability for JavaFX
+
+ * Linux x64
+ 
+#### Packaging script (?)
