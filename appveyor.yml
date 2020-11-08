@@ -1,4 +1,4 @@
-version: '{build}-{commit}'
+version: '{build}-{branch}'
 
 platform:
   - x86
@@ -26,11 +26,13 @@ before_package:
   - mv cool_project/client/target/client-jar-with-dependencies.jar .
   - mv client-jar-with-dependencies.jar client%APPVEYOR_REPO_TAG_NAME%-win32-%PLATFORM%.jar
   
-#deploy:
-#  - provider: GitHub
-#    artifact: name.jar
-#    draft: false
-#    prerelease: false
-#    on:
-#      branch: main
-#      APPVEYOR_REPO_TAG: true   
+deploy:
+  - provider: GitHub
+    artifact: client%APPVEYOR_REPO_TAG_NAME%-win32-%PLATFORM%.jar
+    draft: false
+    prerelease: false
+    auth_token:
+      secure: JSa1npfW5NtI+N0982O0xpEyVK9rWc2Y3tnAOFXpIrmU2QR9mYyWZnwMh0bUCRIo
+    on:
+      branch: main
+      APPVEYOR_REPO_TAG: true   
