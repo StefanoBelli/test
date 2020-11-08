@@ -28,7 +28,7 @@ before_deploy:
   
 deploy:
   - provider: GitHub
-    artifact: client*.jar
+    artifact: /.*\.jar/
     auth_token:
       secure: JSa1npfW5NtI+N0982O0xpEyVK9rWc2Y3tnAOFXpIrmU2QR9mYyWZnwMh0bUCRIo
     on:
