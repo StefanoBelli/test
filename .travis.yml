@@ -1,12 +1,11 @@
 os: linux
 dist: focal
-
-language: java
-jdk: oraclejdk14
   
 jobs:
   include:
     - os: windows
+      install:
+        - choco install openjdk maven choco install openjdk11jre
       before_deploy:
         - cd cool_project\client
         - mvn assembly:single
@@ -21,6 +20,9 @@ jobs:
         on:
           tags: true
     - os: osx
+      osx_image: xcode12.2
+      language: java
+      jdk: oraclejdk15
       before_deploy:
         - cd cool_project/client
         - mvn assembly:single
@@ -44,6 +46,8 @@ jobs:
       after_success:
         - cd ..
         - sonar-scanner
+      language: java
+      jdk: oraclejdk15
       before_deploy:
         - cd cool_project/server
         - mvn package
