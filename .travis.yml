@@ -1,12 +1,25 @@
 os: linux
 dist: focal
-language: java
 
-jdk:
-  - oraclejdk14
+language: java
+jdk: oraclejdk14
   
 jobs:
   include:
+    - os: windows
+      before_deploy:
+        - cd cool_project\client
+        - mvn assembly:single
+        - cd ..\..
+        - move cool_project/client/target/client-jar-with-dependencies.jar .
+        - move client-jar-with-dependencies.jar client%TRAVIS_TAG%-win32.jar
+      deploy:
+        provider: releases
+        token: $GITHUB_TOKEN
+        skip_cleanup: true
+        file: client%TRAVIS_TAG%-win32.jar
+        on:
+          tags: true
     - os: osx
       before_deploy:
         - cd cool_project/client
@@ -18,8 +31,7 @@ jobs:
         provider: releases
         token: $GITHUB_TOKEN
         skip_cleanup: true
-        file: 
-          - client$TRAVIS_TAG-osx.jar
+        file: client$TRAVIS_TAG-osx.jar
         on:
           tags: true
     - os: linux
