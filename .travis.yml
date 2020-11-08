@@ -1,3 +1,5 @@
+os: linux
+dist: focal
 language: java
 
 jdk:
@@ -5,9 +7,23 @@ jdk:
   
 jobs:
   include:
+    - os: osx
+      before_deploy:
+        - cd cool_project/client
+        - mvn assembly:single
+        - cd ../..
+        - mv cool_project/client/target/client-jar-with-dependencies.jar .
+        - mv client-jar-with-dependencies.jar client$TRAVIS_TAG-osx.jar
+      deploy:
+        provider: releases
+        token: $GITHUB_TOKEN
+        skip_cleanup: true
+        file: 
+          - client$TRAVIS_TAG-osx.jar
+        on:
+          tags: true
     - os: linux
       dist: focal
-      arch: amd64
       addons:
         sonarcloud:
           organization: "stefanobelli"
@@ -25,14 +41,14 @@ jobs:
         - mv cool_project/server/target/server.jar .
         - mv cool_project/client/target/client-jar-with-dependencies.jar .
         - mv server.jar server$TRAVIS_TAG.jar
-        - mv client-jar-with-dependencies.jar client$TRAVIS_TAG-linux-amd64.jar
+        - mv client-jar-with-dependencies.jar client$TRAVIS_TAG-linux.jar
       deploy:
         provider: releases
         token: $GITHUB_TOKEN
         skip_cleanup: true
         file: 
           - server$TRAVIS_TAG.jar
-          - client$TRAVIS_TAG-linux-amd64.jar
+          - client$TRAVIS_TAG-linux.jar
         on:
           tags: true
       
