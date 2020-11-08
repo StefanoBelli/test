@@ -4,6 +4,7 @@ dist: focal
 jobs:
   include:
     - os: windows
+      language: c
       install:
         - choco install openjdk maven choco install openjdk11jre
       before_deploy:
