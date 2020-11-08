@@ -25,7 +25,11 @@ before_deploy:
   - mv cool_project/client/target/client-jar-with-dependencies.jar .
   - ren client-jar-with-dependencies.jar client%APPVEYOR_REPO_TAG_NAME%-win32-%PLATFORM%.jar
   - dir
-  
+
+artifacts:
+  - path: /.*\.jar/
+    name: client
+
 deploy:
   - provider: GitHub
     artifact: /.*\.jar/
