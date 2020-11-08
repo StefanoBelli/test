@@ -7,12 +7,7 @@ jobs:
       language: c
       install:
         - choco install openjdk maven openjdk11jre
-      before_script:
-        - C:\ProgramData\chocolatey\lib\maven\mvn -version
-      script:
-        - cd cool_project
-        - C:\ProgramData\chocolatey\lib\maven\mvn compile
-        - C:\ProgramData\chocolatey\lib\maven\mvn test
+        - refreshenv
       before_deploy:
         - cd cool_project\client
         - mvn assembly:single
