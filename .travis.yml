@@ -1,15 +1,43 @@
-os: linux
-dist: xenial
 language: java
 
-addons:
-  sonarcloud:
-    organization: "stefanobelli"
-    token:
-      secure: eXH+iWk1m4I0omwnWRl2xfBeJb2RgQn8pPgHsWnCabQRFblbmD2/QJiu8SYmDKljoJ5ZYzECTIEXfKXG/614wvzdL5wpOh0tUzv8NOt/69TtYEXO+HeVbhB12umwrdvglRuHM33nCMJgkxDcUMT+tYECs7tOCSPp/E5sYil+AT0IsNyOOIg0evcTIQSiuuvurnaE5m21sVzIFBALrCyLYepYSmm7CKn9SCZx69Lvq5ESTmGLDc+HC2iXumuQiw1uSjKwaIoXmyQd47WvQLbtuwA24Tz8D10ph58wlfp32M3nbgQumWsiQVaMuzpI8tQMEgWGBkuAHAEk+yJgnwk/6gFh1PmVI3ufLC5cQQoqAWbphdQgFu1r5dM/jva1l2fYhecZexifJQ3BAQtbxvJPa2n73ifn3OWlbmFOGQyRvgelolabFexvIqRKkscYP5Py9rYOlFOzLKoFXg7LijTTV0CWj1tKyEQ4PXBFcV0HptZKSwES/jXAe+hjk9KWSChPCJWw1K0ZwO5aTHonqCKqpeomGKrKMjLXZPOUNgHb4RMgtOE7fsKbcMx6JLsyanu1VeLebqL8A3H/1id+32TFH89ZaZI0gMBaVjryztJe0WcnjT1/3bkeArOfmds7urgVyG/eMEFu8soNob610MCP4J8Th4N1UKD8wUgeXFDY/uc=
- 
 jdk:
   - oraclejdk14
+  
+jobs:
+  include:
+    - os: linux
+      dist: focal
+      arch: amd64
+      addons:
+        sonarcloud:
+          organization: "stefanobelli"
+          token:
+            secure: eXH+iWk1m4I0omwnWRl2xfBeJb2RgQn8pPgHsWnCabQRFblbmD2/QJiu8SYmDKljoJ5ZYzECTIEXfKXG/614wvzdL5wpOh0tUzv8NOt/69TtYEXO+HeVbhB12umwrdvglRuHM33nCMJgkxDcUMT+tYECs7tOCSPp/E5sYil+AT0IsNyOOIg0evcTIQSiuuvurnaE5m21sVzIFBALrCyLYepYSmm7CKn9SCZx69Lvq5ESTmGLDc+HC2iXumuQiw1uSjKwaIoXmyQd47WvQLbtuwA24Tz8D10ph58wlfp32M3nbgQumWsiQVaMuzpI8tQMEgWGBkuAHAEk+yJgnwk/6gFh1PmVI3ufLC5cQQoqAWbphdQgFu1r5dM/jva1l2fYhecZexifJQ3BAQtbxvJPa2n73ifn3OWlbmFOGQyRvgelolabFexvIqRKkscYP5Py9rYOlFOzLKoFXg7LijTTV0CWj1tKyEQ4PXBFcV0HptZKSwES/jXAe+hjk9KWSChPCJWw1K0ZwO5aTHonqCKqpeomGKrKMjLXZPOUNgHb4RMgtOE7fsKbcMx6JLsyanu1VeLebqL8A3H/1id+32TFH89ZaZI0gMBaVjryztJe0WcnjT1/3bkeArOfmds7urgVyG/eMEFu8soNob610MCP4J8Th4N1UKD8wUgeXFDY/uc=
+      after_success:
+        - cd ..
+        - sonar-scanner
+      before_deploy:
+        - cd cool_project/server
+        - mvn package
+        - cd ../client
+        - mvn assembly:single
+        - cd ../..
+        - mv cool_project/server/target/server.jar .
+        - mv cool_project/client/target/client-jar-with-dependencies.jar .
+        - mv server.jar server$TRAVIS_TAG.jar
+        - mv client-jar-with-dependencies.jar client$TRAVIS_TAG-linux-amd64.jar
+      deploy:
+        provider: releases
+        token: $GITHUB_TOKEN
+        skip_cleanup: true
+        file: 
+          - server$TRAVIS_TAG.jar
+          - client$TRAVIS_TAG-linux-amd64.jar
+        on:
+          tags: true
+      
+
+# BEGIN Common phases
 
 before_script:
   - mvn -version
@@ -19,26 +47,4 @@ script:
   - mvn compile
   - mvn test
 
-after_success:
-  - cd ..
-  - sonar-scanner
-
-before_deploy:
-  - cd cool_project/server
-  - mvn package
-  - cd ../client
-  - mvn assembly:single
-  - cd ../..
-  - mv cool_project/server/target/server.jar .
-  - mv cool_project/client/target/client-jar-with-dependencies.jar .
-  - mv server.jar server$TRAVIS_TAG.jar
-  - mv client-jar-with-dependencies.jar client$TRAVIS_TAG.jar
-  - zip test-rel$TRAVIS_TAG.zip server$TRAVIS_TAG.jar client$TRAVIS_TAG.jar
-
-deploy:
-  provider: releases
-  token: $GITHUB_TOKEN
-  skip_cleanup: true
-  file: test-rel$TRAVIS_TAG.zip
-  on:
-    tags: true
+# END Common phases
