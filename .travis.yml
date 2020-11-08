@@ -6,7 +6,7 @@ jobs:
     - os: windows
       language: c
       install:
-        - choco install openjdk maven choco install openjdk11jre
+        - choco install openjdk maven openjdk11jre
       before_deploy:
         - cd cool_project\client
         - mvn assembly:single
