@@ -1,4 +1,4 @@
-version: {build}-{commit}
+version: '{build}-{commit}'
 
 platform:
   - x86
