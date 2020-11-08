@@ -1,7 +1,6 @@
 version: '{build}-{branch}'
 
 platform:
-  - x86
   - x64
 
 # scripts to run before build
@@ -23,9 +22,8 @@ before_deploy:
   - mvn assembly:single
   - cd ../..
   - mv cool_project/client/target/client-jar-with-dependencies.jar .
-  - ren client-jar-with-dependencies.jar client%APPVEYOR_REPO_TAG_NAME%-win32-%PLATFORM%.jar
-  - dir
-  - appveyor PushArtifact client%APPVEYOR_REPO_TAG_NAME%-win32-%PLATFORM%.jar
+  - ren client-jar-with-dependencies.jar client%APPVEYOR_REPO_TAG_NAME%-win32.jar
+  - appveyor PushArtifact client%APPVEYOR_REPO_TAG_NAME%-win32.jar
 
 deploy:
   - provider: GitHub
