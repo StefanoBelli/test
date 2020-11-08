@@ -38,7 +38,7 @@ jobs:
         - cd ../..
         - mv cool_project/server/target/server.jar .
         - mv cool_project/client/target/client-jar-with-dependencies.jar .
-        - mv server.jar server$TRAVIS_TAG.jar
+        - mv server.jar server$TRAVIS_TAG-any.jar
         - mv client-jar-with-dependencies.jar client$TRAVIS_TAG-linux.jar
       deploy:
         provider: releases
