@@ -1,0 +1,36 @@
+version: {build}-{commit}
+
+platform:
+  - x86
+  - x64
+
+# scripts to run before build
+before_build:
+  - java -version
+  - mvn -version
+  - cd cool_project
+
+# to run your custom scripts instead of automatic MSBuild
+build_script:
+  - mvn compile
+
+# to run your custom scripts instead of automatic tests
+test_script:
+  - mvn test
+
+# scripts to run *after* solution is built and *before* automatic packaging occurs (web apps, NuGet packages, Azure Cloud Services)
+before_package:
+  - cd client
+  - mvn assembly:single
+  - cd ../..
+  - mv cool_project/client/target/client-jar-with-dependencies.jar .
+  - mv client-jar-with-dependencies.jar client%APPVEYOR_REPO_TAG_NAME%-win32-%PLATFORM%.jar
+  
+#deploy:
+#  - provider: GitHub
+#    artifact: name.jar
+#    draft: false
+#    prerelease: false
+#    on:
+#      branch: main
+#      APPVEYOR_REPO_TAG: true   
