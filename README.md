@@ -1,3 +1,14 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/isagiyxunlwm0tkj/branch/main?svg=true)](https://ci.appveyor.com/project/StefanoBelli/test/branch/main)
+[![Build status](https://travis-ci.com/StefanoBelli/test.svg?branch=main)](https://travis-ci.com/StefanoBelli/test)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=StefanoBelli_test&metric=sqale_index)](https://sonarcloud.io/dashboard?id=StefanoBelli_test)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=StefanoBelli_test&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=StefanoBelli_test)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=StefanoBelli_test&metric=alert_status)](https://sonarcloud.io/dashboard?id=StefanoBelli_test)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=StefanoBelli_test&metric=code_smells)](https://sonarcloud.io/dashboard?id=StefanoBelli_test)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=StefanoBelli_test&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=StefanoBelli_test)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=StefanoBelli_test&metric=security_rating)](https://sonarcloud.io/dashboard?id=StefanoBelli_test)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=StefanoBelli_test&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=StefanoBelli_test)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=StefanoBelli_test&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=StefanoBelli_test)
+
 # test
 Testing some ISPW things (svn, travis, sonarcloud)
 
