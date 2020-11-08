@@ -8,6 +8,7 @@ jobs:
       install:
         - choco install openjdk maven openjdk11jre
         - RefreshEnv.cmd
+        - path
       deploy:
         provider: releases
         token: $GITHUB_TOKEN
