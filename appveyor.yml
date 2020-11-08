@@ -23,11 +23,12 @@ before_deploy:
   - mvn assembly:single
   - cd ../..
   - mv cool_project/client/target/client-jar-with-dependencies.jar .
-  - mv client-jar-with-dependencies.jar client%APPVEYOR_REPO_TAG_NAME%-win32-%PLATFORM%.jar
+  - mv client-jar-with-dependencies.jar client$APPVEYOR_REPO_TAG_NAME-win32-$PLATFORM.jar
+  - dir
   
 deploy:
   - provider: GitHub
-    artifact: client%APPVEYOR_REPO_TAG_NAME%-win32-%PLATFORM%.jar
+    artifact: client$APPVEYOR_REPO_TAG_NAME-win32-$PLATFORM.jar
     auth_token:
       secure: JSa1npfW5NtI+N0982O0xpEyVK9rWc2Y3tnAOFXpIrmU2QR9mYyWZnwMh0bUCRIo
     on:
