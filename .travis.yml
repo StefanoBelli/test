@@ -6,9 +6,10 @@ jobs:
     - os: windows
       language: c
       install:
-        - choco install openjdk maven openjdk11jre
-        - RefreshEnv.cmd
-        - echo %PATH%
+        - choco install openjdk --params "/InstallDir:C:\openjdk"
+        - choco install openjdk11jre --params "/InstallDir:C:\openjdk11jre"
+        - choco install maven --params "/InstallDir:C:\maven"
+
       deploy:
         provider: releases
         token: $GITHUB_TOKEN
