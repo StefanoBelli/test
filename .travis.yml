@@ -1,27 +1,12 @@
 os: linux
 dist: focal
+language: java
+jdk: oraclejdk15
   
 jobs:
   include:
-    - os: windows
-      language: c
-      install:
-        - choco install openjdk --params "/InstallDir:C:\openjdk"
-        - choco install openjdk11jre --params "/InstallDir:C:\openjdk11jre"
-        - choco install maven --params "/InstallDir:C:\maven"
-        - set PATH "C:\ProgramData\chocolatey\lib\maven\bin;%PATH%"
-
-      deploy:
-        provider: releases
-        token: $GITHUB_TOKEN
-        skip_cleanup: true
-        file: client%TRAVIS_TAG%-win32.jar
-        on:
-          tags: true
     - os: osx
       osx_image: xcode12.2
-      language: java
-      jdk: oraclejdk15
       before_deploy:
         - cd cool_project/client
         - mvn assembly:single
@@ -45,8 +30,6 @@ jobs:
       after_success:
         - cd ..
         - sonar-scanner
-      language: java
-      jdk: oraclejdk15
       before_deploy:
         - cd cool_project/server
         - mvn package
