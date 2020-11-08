@@ -23,7 +23,7 @@ before_deploy:
   - mvn assembly:single
   - cd ../..
   - mv cool_project/client/target/client-jar-with-dependencies.jar .
-  - powershell -Command "Rename-Item (get-location)+'client-jar-with-dependencies.jar' 'client$env:APPVEYOR_REPO_TAG_NAME-win32-$env:PLATFORM.jar'"
+  - powershell -Command Rename-Item -Path "(get-location)+'client-jar-with-dependencies.jar'" -NewName "client$env:APPVEYOR_REPO_TAG_NAME-win32-$env:PLATFORM.jar"
   - dir
   
 deploy:
