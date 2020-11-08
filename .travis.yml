@@ -8,7 +8,7 @@ jobs:
     - os: osx
       osx_image: xcode12.2
       before_deploy:
-        - cd cool_project/client
+        - cd client
         - mvn assembly:single
         - cd ../..
         - mv cool_project/client/target/client-jar-with-dependencies.jar .
