@@ -7,13 +7,10 @@ jobs:
       language: c
       install:
         - choco install openjdk maven openjdk11jre
-        - refreshenv
+      script:
+        - powershell TestProject-ScriptPhase.ps1
       before_deploy:
-        - cd cool_project\client
-        - mvn assembly:single
-        - cd ..\..
-        - move cool_project/client/target/client-jar-with-dependencies.jar .
-        - move client-jar-with-dependencies.jar client%TRAVIS_TAG%-win32.jar
+        - powershell TestProject-BeforeDeployPhase.ps1
       deploy:
         provider: releases
         token: $GITHUB_TOKEN
@@ -25,6 +22,8 @@ jobs:
       osx_image: xcode12.2
       language: java
       jdk: oraclejdk15
+      before_script:
+        - mvn -version
       before_deploy:
         - cd cool_project/client
         - mvn assembly:single
@@ -50,6 +49,8 @@ jobs:
         - sonar-scanner
       language: java
       jdk: oraclejdk15
+      before_script:
+        - mvn -version
       before_deploy:
         - cd cool_project/server
         - mvn package
@@ -72,9 +73,6 @@ jobs:
       
 
 # BEGIN Common phases
-
-before_script:
-  - mvn -version
 
 script: 
   - cd cool_project
