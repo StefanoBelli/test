@@ -151,6 +151,28 @@ Testing some ISPW things (svn, travis, sonarcloud)
    
 ### Cross-platform compatability for JavaFX
 
- * Linux x64
+ https://stackoverflow.com/questions/61579722/making-a-cross-platform-build-of-javafx-using-gradle
+
+~~~
+	<dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>13</version>
+            <classifier>win</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>13</version>
+            <classifier>linux</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>13</version>
+            <classifier>mac</classifier>
+	</dependency>
+~~~
+
  
-#### Packaging script (?)
+ 
