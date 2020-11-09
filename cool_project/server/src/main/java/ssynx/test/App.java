@@ -12,6 +12,6 @@ public class App
     
     public static void main( String[] args )
     {
-       logger.println( "Hello World!" );
+       logger.info( "Hello World!" );
     }
 }
