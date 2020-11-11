@@ -1,13 +1,7 @@
 package ssynx.test;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-    	HelloWorld.main(args);
-    }
+public class App {
+	public static void main(String[] args) {
+		CalculatorApp.main(args);
+	}
 }
