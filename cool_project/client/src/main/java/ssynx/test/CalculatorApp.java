@@ -18,8 +18,8 @@ public class CalculatorApp extends Application {
 	private Button[] numberButton;
 	private Button[] operationButton;
 	
-	private final int WIDTH = 200;
-	private final int HEIGHT = 250;
+	private static final int WIDTH = 200;
+	private static final int HEIGHT = 250;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -79,62 +79,65 @@ public class CalculatorApp extends Application {
 		primaryStage.setScene(populateScene());
 		primaryStage.show();
 	}
+
+	private class OperationResult {
+		private final int res;
+		private final boolean divByZero;
+
+		public OperationResult(int res, boolean divByZero) {
+			this.res = res;
+			this.divByZero = divByZero;
+		}
+
+		public int getRes() {
+			return res;
+		}
+
+		public boolean isDivByZero() {
+			return divByZero;
+		}
+	}
 	
 	// Calculator states
-	
+
 	//Initial state -- empty: can only press numbers
 	private void emptyNumberState() {
 		for(final Button btn : operationButton)
 			btn.setDisable(true);
 	}
-	
-	//At least one number was pressed, enable "C" (like backspace)
-	private void leastNumberState() {
-		int i = 0;
-		
-		for(i = 0; i < operationButton.length - 1; ++i)
-			operationButton[i].setDisable(false);
-		
-		operationButton[i].setDisable(true);
-	}
-	
-	//One number and one binary operation (+, *, -, /) 
-	//was correctly specified, enable "="
-	private void binaryOpSpecifiedState(boolean disableEquals) {
-		for(int i = 0; i < 4; ++i)
-			operationButton[i].setDisable(true);
-		
-		operationButton[4].setDisable(false);
-		operationButton[5].setDisable(disableEquals);
-	}
-	
-	//If valid operation then keep results and go to leastNumber state
-	//otherwise (if division by zero) clear results and 
-	//go back to emptyNumber state
-	
-	private final class OperationResult {
-		private final int res;
-		private final boolean divByZero;
-		
-		public OperationResult(int res, boolean divByZero) {
-			this.res = res;
-			this.divByZero = divByZero;
-		}
-		
-		public int getRes() {
-			return res;
-		}
-		
-		public boolean isDivByZero() {
-			return divByZero;
-		}
-	}
+
 	private EventHandler<MouseEvent> handler = new EventHandler<MouseEvent> () {
-		
+		private String totalOpStr = "";
+		private boolean divByZero = false;
+
+		//At least one number was pressed, enable "C" (like backspace)
+		private void leastNumberState() {
+			int i = 0;
+
+			for(i = 0; i < operationButton.length - 1; ++i)
+				operationButton[i].setDisable(false);
+
+			operationButton[i].setDisable(true);
+		}
+
+		//One number and one binary operation (+, *, -, /) 
+		//was correctly specified, enable "="
+		private void binaryOpSpecifiedState(boolean disableEquals) {
+			for(int i = 0; i < 4; ++i)
+				operationButton[i].setDisable(true);
+
+			operationButton[4].setDisable(false);
+			operationButton[5].setDisable(disableEquals);
+		}
+
+		//If valid operation then keep results and go to leastNumber state
+		//otherwise (if division by zero) clear results and 
+		//go back to emptyNumber state
+
 		private OperationResult binaryOperator(char sym, int a, int b) {
 			if(sym == '+')
 				return new OperationResult(a + b, false);
-				
+
 			if(sym == '-')
 				return new OperationResult(a - b, false);
 				
@@ -147,15 +150,12 @@ public class CalculatorApp extends Application {
 			return new OperationResult(a / b, false);
 		}
 		
-		private String totalOpStr = "";
-		private boolean divByZero = false;
-		
 		private String removeLastChar(String str) {
-			String newString = "";
+			StringBuilder builder = new StringBuilder();
 			for(int i = 0; i < str.length() - 1; ++i)
-				newString += Character.toString(str.charAt(i));
+				builder.append(Character.toString(str.charAt(i)));
 			
-			return newString;
+			return builder.toString();
 		}
 		
 		private int opSymLookup(String str) {
@@ -207,12 +207,12 @@ public class CalculatorApp extends Application {
 			Button b = (Button) arg0.getSource();
 			String evText = b.getText();
 			
-			if(totalOpStr == "") {
+			if(totalOpStr.equals("")) {
 				totalOpStr += evText;
 				leastNumberState();
 			} else {
-				if(evText == "+" || evText == "*" || 
-						evText == "/" || evText == "-") {
+				if(evText.equals("+") || evText.equals("*") || 
+						evText.equals("/") || evText.equals("-")) {
 					totalOpStr += evText;
 					binaryOpSpecifiedState(true);
 				} else if(evText == "C") {
@@ -232,7 +232,7 @@ public class CalculatorApp extends Application {
 								leastNumberState();
 						}
 					}
-				} else if(evText == "=") {
+				} else if(evText.equals("=")) {
 					Pair<String[], Character> paired = split();
 					String[] ops = paired.getKey();
 					char sym = paired.getValue();
