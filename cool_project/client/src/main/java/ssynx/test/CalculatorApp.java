@@ -129,7 +129,7 @@ public class CalculatorApp extends Application {
 			return divByZero;
 		}
 	}
-	private EventHandler<MouseEvent> handler = new EventHandler<> () {
+	private EventHandler<MouseEvent> handler = new EventHandler<MouseEvent> () {
 		
 		private OperationResult binaryOperator(char sym, int a, int b) {
 			if(sym == '+')
@@ -172,14 +172,13 @@ public class CalculatorApp extends Application {
 		
 		private Pair<String[], Character> split() {
 			int symAt = opSymLookup(totalOpStr);
-			if(symAt == 0) {
-				return new Pair<>(new String[]{ totalOpStr },  ' ');
-			}
+			if(symAt == 0)
+				return new Pair<String[], Character>(new String[]{ totalOpStr },  ' ');
 			
 			char sym = totalOpStr.charAt(symAt);
 			String[] ops = totalOpStr.split("\\" + sym);
 			
-			return new Pair<>(ops, sym);
+			return new Pair<String[], Character>(ops, sym);
 		}
 		
 		private void display() {
