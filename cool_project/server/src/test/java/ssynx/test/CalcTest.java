@@ -9,6 +9,7 @@ import org.junit.Test;
  */
 public class CalcTest 
 {
+	private CalcTest() {}
     /**
      * Rigorous Test :-)
      */

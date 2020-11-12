@@ -173,12 +173,12 @@ public class CalculatorApp extends Application {
 		private Pair<String[], Character> split() {
 			int symAt = opSymLookup(totalOpStr);
 			if(symAt == 0)
-				return new Pair<String[], Character>(new String[]{ totalOpStr },  ' ');
+				return new Pair<>(new String[]{ totalOpStr },  ' ');
 			
 			char sym = totalOpStr.charAt(symAt);
 			String[] ops = totalOpStr.split("\\" + sym);
 			
-			return new Pair<String[], Character>(ops, sym);
+			return new Pair<>(ops, sym);
 		}
 		
 		private void display() {
@@ -215,7 +215,7 @@ public class CalculatorApp extends Application {
 						evText.equals("/") || evText.equals("-")) {
 					totalOpStr += evText;
 					binaryOpSpecifiedState(true);
-				} else if(evText == "C") {
+				} else if(evText.equals("C")) {
 					totalOpStr = removeLastChar(totalOpStr);
 					int len = totalOpStr.length();
 					if(len == 0) {
