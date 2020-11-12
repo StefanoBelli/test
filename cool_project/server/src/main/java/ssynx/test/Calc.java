@@ -1,6 +1,8 @@
 package ssynx.test;
 
 public class Calc {
+	private Calc() {}
+
 	public static int sum(int x, int y) {
 		return x + y;
 	}
